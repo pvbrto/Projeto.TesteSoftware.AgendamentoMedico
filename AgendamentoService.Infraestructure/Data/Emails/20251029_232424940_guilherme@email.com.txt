@@ -1,0 +1,8 @@
+
+                Data: 29/10/2025 23:24:31
+                Destinatário: guilherme@email.com
+                Assunto: Conflito na consulta
+
+                --- MENSAGEM ---
+                Sua consulta possui um conflito de horários. Ela será salva e estará no status de Aguardando Horário. Altere o horário ou aguarde para continuar.
+                

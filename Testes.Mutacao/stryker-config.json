@@ -1,0 +1,34 @@
+{
+  "stryker-config": {
+    "project": "Testes.Mutacao.csproj",
+    "test-projects": ["Testes.Mutacao.csproj"],
+    "reporters": ["html", "json", "console", "progress", "baseline"],
+    "output-dir": "./StrykerOutput",
+    "thresholds": {
+      "high": 90,
+      "low": 70,
+      "break": 60
+    },
+    "mutation-level": "Complete",
+    "timeout-ms": 15000,
+    "concurrency": 4,
+    "ignore-methods": [
+      "*ToString*",
+      "*GetHashCode*",
+      "*Equals*"
+    ],
+    "mutate": [
+      "CodeUnderTest/**/*.cs"
+    ],
+    "ignore-mutations": [
+      "StringLiteral[Empty]"
+    ],
+    "baseline": {
+      "provider": "filesystem",
+      "baseline-file": "StrykerOutput/baseline.json"
+    },
+    "coverage-analysis": "perTest",
+    "abort-test-on-fail": true,
+    "language-version": "latest"
+  }
+}

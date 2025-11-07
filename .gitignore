@@ -1,0 +1,138 @@
+## --- Visual Studio / .NET ---
+
+# Compilação e cache
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+[Ll]ogs/
+
+# Usuário e configurações locais
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+.vs/
+.vscode/
+
+# Arquivos de debug
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+
+# Pacotes NuGet restauráveis
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+
+# Arquivos de publicação
+publish/
+app.publish/
+*.pubxml
+*.pubxml.user
+*.Publish.xml
+
+# Cache de testes e cobertura
+TestResults/
+*.VisualState.xml
+*.coverage
+*.coveragexml
+*.testsettings
+*.trx
+*.tlog
+
+# Ferramentas e builds temporários
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+*.cache
+*.log
+*.dbmdl
+
+# Diretórios do ReSharper, Rider e similares
+_ReSharper*/
+.idea/
+*.DotSettings.user
+
+# Configurações de ferramentas locais
+*.local.json
+.env
+.env.*
+
+# Arquivos de sistema
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Arquivos de backup e temporários do editor
+*~
+*.swp
+*.swo
+
+# Diretórios de publicação e deploy
+out/
+dist/
+release/
+artifacts/
+
+# Certificados e chaves
+*.pfx
+*.p12
+*.key
+*.cer
+
+# Dados sensíveis ou secretos
+secrets.json
+appsettings.Development.json
+appsettings.Local.json
+
+# Docker e containers
+**/docker-compose.override.yml
+**/docker-compose*.dcproj
+.docker/
+
+# Arquivos gerados por ferramentas de IA (caso use Copilot etc)
+copilot*.json
+
+# Cache do .NET
+.nuget/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Arquivos temporários do Visual Studio
+*.dbmdl
+*.jfm
+*.psess
+*.vsp
+*.vspx
+*.pidb
+*.svclog
+*.scc
+
+# Arquivos de benchmark
+BenchmarkDotNet.Artifacts/
+
+# Configurações de publish locais
+Properties/PublishProfiles/*.pubxml
+Properties/PublishProfiles/*.pubxml.user
+
+# Arquivos do Azure
+*.azurePubxml
+ServiceDependencies/
+ServiceReferences/
+
+# Arquivos do IIS
+_IISExpress/
+iisexpress.log
+
+*.db
