@@ -4,10 +4,6 @@ using Xunit;
 
 namespace Testes.Unitarios.Domain.Entities
 {
-    /// <summary>
-    /// Testes de caixa branca para a entidade Paciente
-    /// Foca na lógica interna, validações e comportamentos específicos
-    /// </summary>
     [Trait("Category", "Domain")]
     [Trait("Type", "Unit")]
     public class PacienteTests
@@ -22,14 +18,12 @@ namespace Testes.Unitarios.Domain.Entities
         [Fact]
         public void Construtor_DeveInicializarPropriedadesCorretamente()
         {
-            // Arrange
             var nome = "João Silva";
             var email = "joao@teste.com";
             var telefone = "(11) 99999-9999";
             var cpf = "123.456.789-00";
             var dataNascimento = new DateTime(1990, 1, 1);
 
-            // Act
             var paciente = new Paciente
             {
                 Nome = nome,
@@ -39,7 +33,6 @@ namespace Testes.Unitarios.Domain.Entities
                 DataNascimento = dataNascimento
             };
 
-            // Assert
             paciente.Nome.Should().Be(nome);
             paciente.Email.Should().Be(email);
             paciente.Telefone.Should().Be(telefone);
@@ -50,47 +43,40 @@ namespace Testes.Unitarios.Domain.Entities
         [Fact]
         public void CalcularIdade_DeveRetornarIdadeCorreta_QuandoDataNascimentoValida()
         {
-            // Arrange
             var dataAtual = new DateTime(2024, 11, 6);
             var dataNascimento = new DateTime(1990, 5, 15);
             var paciente = new Paciente { DataNascimento = dataNascimento };
             var idadeEsperada = 34;
 
-            // Act
             var idade = CalcularIdade(paciente.DataNascimento, dataAtual);
 
-            // Assert
             idade.Should().Be(idadeEsperada);
         }
 
         [Theory]
-        [InlineData(2024, 6, 15, 2024, 6, 14, 0)] // Mesmo ano, antes do aniversário
-        [InlineData(2024, 6, 15, 2024, 6, 15, 0)] // Mesmo ano, no aniversário
-        [InlineData(2024, 1, 1, 2024, 6, 15, 0)] // Mesmo ano, depois do aniversário
-        [InlineData(2023, 6, 15, 2024, 6, 14, 0)] // Ano anterior, um dia antes do aniversário
-        [InlineData(2023, 6, 15, 2024, 6, 15, 1)] // Ano anterior, no aniversário
-        [InlineData(2023, 6, 15, 2024, 6, 16, 1)] // Ano anterior, um dia depois do aniversário
+        [InlineData(2024, 6, 15, 2024, 6, 14, 0)]
+        [InlineData(2024, 6, 15, 2024, 6, 15, 0)]
+        [InlineData(2024, 1, 1, 2024, 6, 15, 0)]
+        [InlineData(2023, 6, 15, 2024, 6, 14, 0)]
+        [InlineData(2023, 6, 15, 2024, 6, 15, 1)]
+        [InlineData(2023, 6, 15, 2024, 6, 16, 1)]
         public void CalcularIdade_DeveCalcularCorretamente_ParaDiferentesCenarios(
             int anoNascimento, int mesNascimento, int diaNascimento,
             int anoAtual, int mesAtual, int diaAtual,
             int idadeEsperada)
         {
-            // Arrange
             var dataNascimento = new DateTime(anoNascimento, mesNascimento, diaNascimento);
             var dataAtual = new DateTime(anoAtual, mesAtual, diaAtual);
             var paciente = new Paciente { DataNascimento = dataNascimento };
 
-            // Act
             var idade = CalcularIdade(paciente.DataNascimento, dataAtual);
 
-            // Assert
             idade.Should().Be(idadeEsperada);
         }
 
         [Fact]
         public void ValidarEmail_DeveRetornarTrue_QuandoEmailValido()
         {
-            // Arrange
             var emailsValidos = new[]
             {
                 "teste@exemplo.com",
@@ -101,10 +87,8 @@ namespace Testes.Unitarios.Domain.Entities
 
             foreach (var email in emailsValidos)
             {
-                // Act
                 var resultado = ValidarEmail(email);
 
-                // Assert
                 resultado.Should().BeTrue($"Email '{email}' deveria ser válido");
             }
         }
@@ -116,17 +100,14 @@ namespace Testes.Unitarios.Domain.Entities
         [InlineData("usuario@")]
         public void ValidarEmail_DeveRetornarFalse_QuandoEmailInvalido(string emailInvalido)
         {
-            // Act
             var resultado = ValidarEmail(emailInvalido);
 
-            // Assert
             resultado.Should().BeFalse($"Email '{emailInvalido}' deveria ser inválido");
         }
 
         [Fact]
         public void ValidarCpf_DeveRetornarTrue_QuandoCpfValido()
         {
-            // Arrange
             var cpfsValidos = new[]
             {
                 "123.456.789-09",
@@ -136,10 +117,8 @@ namespace Testes.Unitarios.Domain.Entities
 
             foreach (var cpf in cpfsValidos)
             {
-                // Act
                 var resultado = ValidarCpf(cpf);
 
-                // Assert
                 resultado.Should().BeTrue($"CPF '{cpf}' deveria ser válido");
             }
         }
@@ -147,22 +126,19 @@ namespace Testes.Unitarios.Domain.Entities
         [Theory]
         [InlineData("")]
         [InlineData("123")]
-        [InlineData("123.456.789-00")] // CPF inválido
-        [InlineData("111.111.111-11")] // CPF com todos os dígitos iguais
-        [InlineData("000.000.000-00")] // CPF com todos os dígitos zero
+        [InlineData("123.456.789-00")]
+        [InlineData("111.111.111-11")]
+        [InlineData("000.000.000-00")]
         public void ValidarCpf_DeveRetornarFalse_QuandoCpfInvalido(string cpfInvalido)
         {
-            // Act
             var resultado = ValidarCpf(cpfInvalido);
 
-            // Assert
             resultado.Should().BeFalse($"CPF '{cpfInvalido}' deveria ser inválido");
         }
 
         [Fact]
         public void ValidarTelefone_DeveRetornarTrue_QuandoTelefoneValido()
         {
-            // Arrange
             var telefonesValidos = new[]
             {
                 "(11) 99999-9999",
@@ -174,10 +150,8 @@ namespace Testes.Unitarios.Domain.Entities
 
             foreach (var telefone in telefonesValidos)
             {
-                // Act
                 var resultado = ValidarTelefone(telefone);
 
-                // Assert
                 resultado.Should().BeTrue($"Telefone '{telefone}' deveria ser válido");
             }
         }
@@ -185,69 +159,55 @@ namespace Testes.Unitarios.Domain.Entities
         [Theory]
         [InlineData("")]
         [InlineData("123")]
-        [InlineData("(11) 9999-999")] // Muito curto
-        [InlineData("abc-def-ghij")] // Com letras
+        [InlineData("(11) 9999-999")]
+        [InlineData("abc-def-ghij")]
         public void ValidarTelefone_DeveRetornarFalse_QuandoTelefoneInvalido(string telefoneInvalido)
         {
-            // Act
             var resultado = ValidarTelefone(telefoneInvalido);
 
-            // Assert
             resultado.Should().BeFalse($"Telefone '{telefoneInvalido}' deveria ser inválido");
         }
 
         [Fact]
         public void EhMaiorDeIdade_DeveRetornarTrue_QuandoPacienteMaiorDe18Anos()
         {
-            // Arrange
             var dataAtual = new DateTime(2024, 11, 6);
-            var dataNascimento = new DateTime(2000, 1, 1); // 24 anos
+            var dataNascimento = new DateTime(2000, 1, 1);
             var paciente = new Paciente { DataNascimento = dataNascimento };
 
-            // Act
             var resultado = EhMaiorDeIdade(paciente.DataNascimento, dataAtual);
 
-            // Assert
             resultado.Should().BeTrue();
         }
 
         [Fact]
         public void EhMaiorDeIdade_DeveRetornarFalse_QuandoPacienteMenorDe18Anos()
         {
-            // Arrange
             var dataAtual = new DateTime(2024, 11, 6);
-            var dataNascimento = new DateTime(2010, 1, 1); // 14 anos
+            var dataNascimento = new DateTime(2010, 1, 1);
             var paciente = new Paciente { DataNascimento = dataNascimento };
 
-            // Act
             var resultado = EhMaiorDeIdade(paciente.DataNascimento, dataAtual);
 
-            // Assert
             resultado.Should().BeFalse();
         }
 
         [Fact]
         public void EhMaiorDeIdade_DeveRetornarTrue_QuandoPacienteExatamente18Anos()
         {
-            // Arrange
             var dataAtual = new DateTime(2024, 11, 6);
-            var dataNascimento = new DateTime(2006, 11, 6); // Exatamente 18 anos
+            var dataNascimento = new DateTime(2006, 11, 6);
             var paciente = new Paciente { DataNascimento = dataNascimento };
 
-            // Act
             var resultado = EhMaiorDeIdade(paciente.DataNascimento, dataAtual);
 
-            // Assert
             resultado.Should().BeTrue();
         }
 
-        // Métodos auxiliares que simulam a lógica interna da entidade
-        // Em um projeto real, estes métodos estariam na própria entidade
         private static int CalcularIdade(DateTime dataNascimento, DateTime? dataReferencia = null)
         {
             var dataAtual = dataReferencia ?? DateTime.Now;
             
-            // Se a data de nascimento é no futuro, retorna 0
             if (dataNascimento > dataAtual)
                 return 0;
                 
@@ -283,17 +243,14 @@ namespace Testes.Unitarios.Domain.Entities
             if (string.IsNullOrWhiteSpace(cpf))
                 return false;
 
-            // Remove formatação
             cpf = cpf.Replace(".", "").Replace("-", "");
 
             if (cpf.Length != 11)
                 return false;
 
-            // Verifica se todos os dígitos são iguais
             if (cpf.All(c => c == cpf[0]))
                 return false;
 
-            // Validação dos dígitos verificadores
             var multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             var multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
@@ -336,11 +293,8 @@ namespace Testes.Unitarios.Domain.Entities
             if (string.IsNullOrWhiteSpace(telefone))
                 return false;
 
-            // Remove formatação
             var numeroLimpo = new string(telefone.Where(char.IsDigit).ToArray());
 
-            // Aceita números com 10 ou 11 dígitos (com ou sem 9 no celular)
-            // Pode ter código do país (+55)
             return numeroLimpo.Length >= 10 && numeroLimpo.Length <= 13;
         }
 
@@ -351,8 +305,6 @@ namespace Testes.Unitarios.Domain.Entities
         }
     }
 
-    // Classe auxiliar para simular a entidade Paciente
-    // Em um projeto real, esta classe estaria no domínio
     public class Paciente
     {
         public string Nome { get; set; } = string.Empty;

@@ -3,10 +3,6 @@ using System.Text;
 
 namespace Testes.Funcionais.Infrastructure
 {
-    /// <summary>
-    /// Classe base para testes de caixa preta usando HttpClient direto
-    /// Assume que as APIs estão rodando em portas específicas
-    /// </summary>
     public abstract class HttpClientTestBase : IDisposable
     {
         protected readonly HttpClient _httpClient;
@@ -55,9 +51,6 @@ namespace Testes.Funcionais.Infrastructure
             return await response.Content.ReadAsStringAsync();
         }
 
-        /// <summary>
-        /// Verifica se a API está disponível
-        /// </summary>
         protected async Task<bool> IsApiAvailable()
         {
             try

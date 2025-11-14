@@ -5,9 +5,6 @@ using Testes.Funcionais.Infrastructure;
 
 namespace Testes.Funcionais.Performance
 {
-    /// <summary>
-    /// Testes de performance que funcionam independentemente das APIs
-    /// </summary>
     public class PerformanceSimpleTests : HttpClientTestBase
     {
         public PerformanceSimpleTests() : base("http://localhost:5000")
@@ -35,11 +32,9 @@ namespace Testes.Funcionais.Performance
         [Fact]
         public void JsonSerialization_DeveSerRapida()
         {
-            // Arrange
             var paciente = TestDataGenerator.Paciente.CreateValidPaciente();
             var stopwatch = new Stopwatch();
 
-            // Act
             stopwatch.Start();
             for (int i = 0; i < 1000; i++)
             {
@@ -47,17 +42,14 @@ namespace Testes.Funcionais.Performance
             }
             stopwatch.Stop();
 
-            // Assert
             stopwatch.ElapsedMilliseconds.Should().BeLessThan(1000, "Serialização deve ser rápida");
         }
 
         [Fact]
         public async Task HttpClient_DeveConfigurarTimeout()
         {
-            // Arrange & Act
             var timeout = _httpClient.Timeout;
 
-            // Assert
             timeout.Should().BeGreaterThan(TimeSpan.Zero);
             timeout.Should().BeLessThan(TimeSpan.FromMinutes(5));
         }
@@ -65,7 +57,6 @@ namespace Testes.Funcionais.Performance
         [Fact]
         public async Task API_DeveResponderRapidamente_QuandoDisponivel()
         {
-            // Arrange
             var isAvailable = await IsApiAvailable();
             
             if (!isAvailable)
@@ -76,19 +67,16 @@ namespace Testes.Funcionais.Performance
 
             var stopwatch = new Stopwatch();
 
-            // Act
             stopwatch.Start();
             var response = await GetAsync("/Consulta/Ping");
             stopwatch.Stop();
 
-            // Assert
             stopwatch.ElapsedMilliseconds.Should().BeLessThan(5000, "API deve responder em menos de 5 segundos");
         }
 
         [Fact]
         public async Task MultipleRequests_DevemSerProcessadas_QuandoAPIDisponivel()
         {
-            // Arrange
             var isAvailable = await IsApiAvailable();
             
             if (!isAvailable)
@@ -99,7 +87,6 @@ namespace Testes.Funcionais.Performance
 
             var tasks = new List<Task<HttpResponseMessage>>();
 
-            // Act
             for (int i = 0; i < 3; i++)
             {
                 tasks.Add(GetAsync("/Consulta/Ping"));
@@ -107,7 +94,6 @@ namespace Testes.Funcionais.Performance
 
             var responses = await Task.WhenAll(tasks);
 
-            // Assert
             responses.Should().HaveCount(3);
             responses.Should().OnlyContain(r => r != null);
         }
@@ -118,10 +104,8 @@ namespace Testes.Funcionais.Performance
         [InlineData(100)]
         public void DataGeneration_DeveEscalar(int quantidade)
         {
-            // Arrange
             var stopwatch = new Stopwatch();
 
-            // Act
             stopwatch.Start();
             for (int i = 0; i < quantidade; i++)
             {
@@ -131,7 +115,6 @@ namespace Testes.Funcionais.Performance
             }
             stopwatch.Stop();
 
-            // Assert
             var tempoMedio = (double)stopwatch.ElapsedMilliseconds / quantidade;
             tempoMedio.Should().BeLessThan(50, $"Geração de {quantidade} registros deve ser eficiente");
         }
@@ -139,10 +122,8 @@ namespace Testes.Funcionais.Performance
         [Fact]
         public void MemoryUsage_DeveSerRazoavel()
         {
-            // Arrange
             var initialMemory = GC.GetTotalMemory(true);
 
-            // Act
             var dados = new List<object>();
             for (int i = 0; i < 1000; i++)
             {
@@ -152,7 +133,6 @@ namespace Testes.Funcionais.Performance
             var finalMemory = GC.GetTotalMemory(false);
             var memoryUsed = finalMemory - initialMemory;
 
-            // Assert
             memoryUsed.Should().BeLessThan(10 * 1024 * 1024, "Uso de memória deve ser razoável (< 10MB)");
         }
     }

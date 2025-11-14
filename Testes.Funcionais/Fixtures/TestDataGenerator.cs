@@ -34,11 +34,11 @@ namespace Testes.Funcionais.Fixtures
             {
                 return new
                 {
-                    Nome = "", // Nome vazio - inválido
-                    Email = "email-invalido", // Email inválido
-                    Telefone = "123", // Telefone muito curto
-                    DataNascimento = DateTime.Now.AddYears(10), // Data futura - inválida
-                    Cpf = "123.456.789-00" // CPF inválido
+                    Nome = "",
+                    Email = "email-invalido",
+                    Telefone = "123",
+                    DataNascimento = DateTime.Now.AddYears(10),
+                    Cpf = "123.456.789-00"
                 };
             }
         }
@@ -53,7 +53,7 @@ namespace Testes.Funcionais.Fixtures
                     Email = _faker.Internet.Email(),
                     Telefone = _faker.Phone.PhoneNumber("(##) #####-####"),
                     Crm = _faker.Random.Number(10000, 99999).ToString(),
-                    EspecialidadeId = 1 // Assumindo que existe uma especialidade com ID 1
+                    EspecialidadeId = 1
                 };
             }
 
@@ -61,11 +61,11 @@ namespace Testes.Funcionais.Fixtures
             {
                 return new
                 {
-                    Nome = "", // Nome vazio
+                    Nome = "",
                     Email = "email-invalido",
                     Telefone = "123",
-                    Crm = "", // CRM vazio
-                    EspecialidadeId = 999999 // ID de especialidade inexistente
+                    Crm = "",
+                    EspecialidadeId = 999999
                 };
             }
         }
@@ -76,8 +76,8 @@ namespace Testes.Funcionais.Fixtures
             {
                 return new
                 {
-                    PacienteId = 1, // Assumindo que existe um paciente com ID 1
-                    MedicoId = 1, // Assumindo que existe um médico com ID 1
+                    PacienteId = 1,
+                    MedicoId = 1,
                     DataHora = DateTime.Now.AddDays(_faker.Random.Number(1, 30)),
                     Observacoes = _faker.Lorem.Sentence()
                 };
@@ -87,9 +87,9 @@ namespace Testes.Funcionais.Fixtures
             {
                 return new
                 {
-                    PacienteId = 999999, // ID inexistente
-                    MedicoId = 999999, // ID inexistente
-                    DataHora = DateTime.Now.AddDays(-10), // Data no passado
+                    PacienteId = 999999,
+                    MedicoId = 999999,
+                    DataHora = DateTime.Now.AddDays(-10),
                     Observacoes = ""
                 };
             }

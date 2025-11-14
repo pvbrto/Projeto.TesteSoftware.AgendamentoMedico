@@ -11,8 +11,6 @@ namespace Testes.Funcionais.Infrastructure
         {
             builder.ConfigureServices(services =>
             {
-                // Configurações específicas para testes
-                // Aqui você pode substituir serviços por mocks se necessário
             });
 
             builder.UseEnvironment("Testing");

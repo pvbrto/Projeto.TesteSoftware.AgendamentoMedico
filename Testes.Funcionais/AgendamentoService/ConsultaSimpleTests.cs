@@ -5,10 +5,6 @@ using Testes.Funcionais.Infrastructure;
 
 namespace Testes.Funcionais.AgendamentoService
 {
-    /// <summary>
-    /// Testes de caixa preta simplificados para Consultas
-    /// Estes testes são resilientes e funcionam mesmo quando as APIs não estão rodando
-    /// </summary>
     public class ConsultaSimpleTests : HttpClientTestBase
     {
         public ConsultaSimpleTests() : base("http://localhost:5000")
